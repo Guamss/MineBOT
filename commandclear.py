@@ -1,20 +1,21 @@
 import discord
 from discord.ext import commands
-from discord.ext.commands import has_permissions, CheckFailure
+from discord.ext.commands import has_permissions
 
-bot = commands.Bot(command_prefix ="__")
+bot = commands.Bot(command_prefix ="")
 @bot.event
 async def on_ready():
     print("MineBOT est prêt à l'usage !")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="with a lot of users"))
-
+    
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("Looks like you are not allowed to do this...")
+        
 @bot.command(name ="clear", pass_context = True)
-@has_permissions(administrator=True, manage_messages=True, manage_roles=True)
+@has_permissions(manage_messages=True)
 async def clearmessage(ctx, nbr = 5):
     await ctx.channel.purge(limit=nbr+1)
-@clearmessage.error
-async def clearmessage_error(error, ctx):
-    if isinstance(error, CheckFailure):
-        await bot.send_message(ctx.message.channel, "Looks like you're not authorized to do this...")
 
 bot.run("token")

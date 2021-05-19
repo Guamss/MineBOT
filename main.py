@@ -1,8 +1,10 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions
+import cog_admin
+import cog_basic
 
-bot = commands.Bot(command_prefix ="")
+bot = commands.Bot(command_prefix ="__", allowed_mentions =  discord.AllowedMentions(everyone = True, users = True))
 @bot.event
 async def on_ready():
     print("MineBOT est prêt à l'usage !")
@@ -12,10 +14,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("Looks like you are not allowed to do this...")
-        
-@bot.command(name ="clear", pass_context = True)
-@has_permissions(manage_messages=True)
-async def clearmessage(ctx, nbr = 5):
-    await ctx.channel.purge(limit=nbr+1)
 
-bot.run("token")
+bot.add_cog(cog_basic.CogBasic(bot))
+bot.add_cog(cog_admin.CogAdmin(bot))
+bot.run("ODQyMTQ4MjE4OTEyNTA1ODk2.YJxFpQ.3huncpGUDI-WYYPPrNOSBYNk8Hw")

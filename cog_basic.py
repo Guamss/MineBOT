@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import youtube_dl
+from music import Video
 
 class CogBasic(commands.Cog):
     def __init__(self, bot):
@@ -21,3 +23,11 @@ class CogBasic(commands.Cog):
             await ctx.send("I need to be in a voice channel to do this.")
         await ctx.message.guild.voice_client.disconnect()
         await ctx.send("Poof ! Thanks for using me !")
+
+        music= {}
+
+        @commands.command()
+        async def play(self, ctx, url):
+            if url.starstwith("https"):
+                if url.startswith("https://www.youtube.com/"):
+                    client = ctx.guild.voice_client

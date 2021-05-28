@@ -31,3 +31,4 @@ class CogBasic(commands.Cog):
             if url.starstwith("https"):
                 if url.startswith("https://www.youtube.com/"):
                     client = ctx.guild.voice_client
+        #Commande à finir...

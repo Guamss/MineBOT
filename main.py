@@ -17,4 +17,4 @@ async def on_command_error(ctx, error):
 
 bot.add_cog(cog_basic.CogBasic(bot))
 bot.add_cog(cog_admin.CogAdmin(bot))
-bot.run("ODQyMTQ4MjE4OTEyNTA1ODk2.YJxFpQ.b5Xb26AQ3yXGlfSXjIZbQ1GYCMQ")
+bot.run("token")

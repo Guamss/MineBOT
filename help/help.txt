@@ -1,0 +1,10 @@
+Commands for Admins : 
+
+__clear 'nbr'
+
+Other commands : 
+
+__punch
+__join
+__leave
+__opgg 'username' 'region'

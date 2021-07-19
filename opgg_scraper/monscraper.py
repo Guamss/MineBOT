@@ -15,8 +15,10 @@ class Opggtrack:
                 updatedata = {"summonerId": summonerid}
                 with requests.Session() as s:
                     s.post(url, data=updatedata)
+                
                 soup = BeautifulSoup(response.text, "lxml")
-                self.winratio = soup.find("div", {"class" : "Text"})
+                self.last_ten_W = soup.find("span", {"class" : "win"})
+                self.last_ten_D = soup.find("span", {"class" : "lose"})
                 self.kdaratio = soup.find("span", {"class" : "KDARatio"})
                 self.ranksolo = soup.find("div", {"class" : "TierRank"})
                 if self.ranksolo == None:
@@ -29,9 +31,6 @@ class Opggtrack:
                 else:
                     self.rankflex = self.rankflex.text.replace("\n", "").replace("\t", "").replace("  ", "")
 
-    def get_winratio(self):
-        return self.winratio.text
-
     def get_kdaratio(self):
         return self.kdaratio.text
     
@@ -43,6 +42,10 @@ class Opggtrack:
 
     def get_rankflex(self):
         return self.rankflex
+    
+    def get_last_ten_W(self):
+        return self.last_ten_W.text
                     
-
+    def get_last_ten_D(self):
+        return self.last_ten_D.text
                 

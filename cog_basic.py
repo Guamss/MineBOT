@@ -37,11 +37,13 @@ class CogBasic(commands.Cog):
     @commands.command()
     async def opgg(self, ctx, username, region):
         tracker = Opggtrack(username, region)
-        await ctx.send(f"{username} en {region}")
-        await ctx.send(f"rank : {tracker.get_ranksolo()} | Classé Solo/Duo")
-        await ctx.send(f"rank : {tracker.get_rankflex()} | Flex 5:5")
-        await ctx.send(f"winrate : {tracker.get_winratio()}")
-        await ctx.send(f"kda ratio : {tracker.get_kdaratio()}")
+        embed = discord.Embed(
+        title = username,
+        color = discord.Colour.purple(),
+        description = region)
+        embed.add_field(name= "Rank :",value= f"rank : {tracker.get_ranksolo()} | Solo/Duo\nrank : {tracker.get_rankflex()} | Flex 5:5")
+        embed.add_field(name= "Ratio :",value= f"winrate : {int(tracker.get_last_ten_W())*10}%\nkda ratio : {tracker.get_kdaratio()}\nlast 10 Games : {tracker.get_last_ten_W()}W, {tracker.get_last_ten_D()}D")
+        await ctx.send(embed=embed)
         
 
         

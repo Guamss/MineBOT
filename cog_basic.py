@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 from opgg_scraper.monscraper import Opggtrack
+from time import sleep
 
 class CogBasic(commands.Cog):
     def __init__(self, bot):
@@ -44,6 +45,15 @@ class CogBasic(commands.Cog):
         embed.add_field(name= "Rank :",value= f"rank : {tracker.get_ranksolo()} | Solo/Duo\nrank : {tracker.get_rankflex()} | Flex 5:5")
         embed.add_field(name= "Ratio :",value= f"winrate : {int(tracker.get_last_ten_W())*10}%\nkda ratio : {tracker.get_kdaratio()}\nlast 10 Games : {tracker.get_last_ten_W()}W, {tracker.get_last_ten_D()}D")
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def channel(self, ctx, name, time):
+        if ctx.author == self.bot:
+            return
+        else:
+            await ctx.guild.create_voice_channel(name)
+            await ctx.send(f"Votre channel {name} a bien été créer")
+            sleep(time)
         
 
         
